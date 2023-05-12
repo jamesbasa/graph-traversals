@@ -1,3 +1,5 @@
+require 'set' 
+
 class UndirectedGraph
     attr_accessor :matrix
 
