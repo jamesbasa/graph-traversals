@@ -47,6 +47,7 @@ class UndirectedGraph
                 new_row = row + dir[0]
                 new_col = col + dir[1]
 
+                # use implicit recursion stack
                 traverse(new_row, new_col, visited, is_dfs) if in_bounds?(new_row, new_col)
             end
         else
