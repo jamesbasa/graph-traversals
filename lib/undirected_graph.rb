@@ -1,4 +1,4 @@
-require 'set' 
+require 'set'
 
 class UndirectedGraph
     attr_accessor :matrix
@@ -11,6 +11,16 @@ class UndirectedGraph
     end
 
     def dfs
+        search(is_dfs: true)
+    end
+
+    def bfs
+        search(is_dfs: false)
+    end
+
+    private
+
+    def search(is_dfs: false)
         return [] if @matrix.empty?
 
         visited = Set.new
@@ -19,30 +29,44 @@ class UndirectedGraph
 
         (0...@num_rows).each do |row|
             (0...@num_cols).each do |col|
-                traverse(row, col, visited)
+                traverse(row, col, visited, is_dfs)
             end
         end
 
         return visited.to_a
     end
 
-    def bfs
-        # TODO
-    end
-
-    private
-
-    def traverse(row, col, visited)
+    def traverse(row, col, visited, is_dfs = false)
         return unless @matrix[row][col] == 1
         return if visited.include?([row, col])
 
-        visited << [row, col]
+        if is_dfs
+            visited << [row, col]
 
-        DIRECTIONS.each do |dir|
-            new_row = row + dir[0]
-            new_col = col + dir[1]
+            DIRECTIONS.each do |dir|
+                new_row = row + dir[0]
+                new_col = col + dir[1]
 
-            traverse(new_row, new_col, visited) if in_bounds?(new_row, new_col)
+                traverse(new_row, new_col, visited, is_dfs) if in_bounds?(new_row, new_col)
+            end
+        else
+            queue = Queue.new
+            queue << [row, col]
+            visited << [row, col]
+
+            while !queue.empty?
+                current_row, current_col = queue.pop
+
+                DIRECTIONS.each do |dir|
+                    new_row = current_row + dir[0]
+                    new_col = current_col + dir[1]
+
+                    if in_bounds?(new_row, new_col) && @matrix[new_row][new_col] == 1 && !visited.include?([new_row, new_col])
+                        queue << [new_row, new_col]
+                        visited << [new_row, new_col]
+                    end
+                end
+            end
         end
     end
 
