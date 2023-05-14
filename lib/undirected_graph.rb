@@ -58,13 +58,14 @@ class UndirectedGraph
             while !queue.empty?
                 current_row, current_col = queue.pop
 
+                visited << [current_row, current_col]
+
                 DIRECTIONS.each do |dir|
                     new_row = current_row + dir[0]
                     new_col = current_col + dir[1]
 
                     if in_bounds?(new_row, new_col) && @matrix[new_row][new_col] == 1 && !visited.include?([new_row, new_col])
                         queue << [new_row, new_col]
-                        visited << [new_row, new_col]
                     end
                 end
             end
