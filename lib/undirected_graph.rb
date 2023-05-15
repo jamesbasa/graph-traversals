@@ -53,7 +53,6 @@ class UndirectedGraph
         else
             queue = Queue.new
             queue << [row, col]
-            visited << [row, col]
 
             while !queue.empty?
                 current_row, current_col = queue.pop
