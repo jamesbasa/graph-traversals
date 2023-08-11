@@ -1,4 +1,4 @@
-require './lib/undirected_graph_new.rb'
+require './lib/undirected_graph.rb'
 
 def main
     matrix = [
