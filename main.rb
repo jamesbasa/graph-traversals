@@ -1,4 +1,4 @@
-require './lib/undirected_graph.rb'
+require './lib/undirected_graph_new.rb'
 
 def main
     matrix = [
@@ -20,9 +20,23 @@ def main
 
     # BFS
     graph = UndirectedGraph.new(matrix)
-    dfs = graph.bfs
+    bfs = graph.bfs
     puts "Here is the traversed graph using BFS:"
-    dfs.each { |row| puts row.inspect }
+    bfs.each { |row| puts row.inspect }
+
+    puts
+
+    target_x = 1
+    target_y = 3
+    shortest_path = graph.shortest_path(target_x, target_y)
+    puts "Here is the shortest path for (#{target_x}, #{target_y}):"
+    shortest_path.each { |row| puts row.inspect }
+
+    target_x = 2
+    target_y = 0
+    shortest_path = graph.shortest_path(target_x, target_y)
+    puts "Here is the shortest path for (#{target_x}, #{target_y}):"
+    shortest_path.each { |row| puts row.inspect }
 end
 
 
